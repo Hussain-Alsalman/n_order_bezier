@@ -1,0 +1,71 @@
+---
+title: "Bezier Curves"
+author: "Hussain Alsalman"
+date: "5/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Objective 
+This notebook is an attempt to understand bezier curves and use them to draw custom drawings using the `grid` package. 
+
+# The mathimatics behind Bezier Curves
+
+Bezier curves are some form of "parametric functions" which is basically a function that yeild multiple outputs by using multiple functions. 
+
+let's take an example 
+
+$f(x) = cos(x)$ this is an example of a simple function 
+
+let's make more so we get to the parametric stuff 
+
+$$
+f(a) = cos(a) \\
+f(b) = sin(b)
+$$
+
+
+$$
+\begin{cases}
+f_{a}(t) = cos(t) \\
+f_{b}(t) = sin(t)
+\end{cases}
+$$
+
+```{r}
+library("grid")
+
+x <- c(120,35,220,220)
+y <- c(160,200,260,40)
+grid.newpage()
+grid.bezier(x,y, )
+
+```
+
+```{r}
+library(grid)
+
+grid.newpage()
+
+grid.rect(x = 0.1, y = 0.4, width = unit(0.18, "npc"), 
+          height = unit(0.6, "npc"))
+grid.rect(x = 0.65, y = 0.4, width = unit(0.6, "npc"), 
+          height = unit(0.6, "npc"))
+
+for (i in c(0.1, 0.17)) {
+  x <- c(0.08, 0.05, i, 0.08)
+  y <- c(0.15, 0.25, 0.25, 0.5)
+  grid.bezier(x, y, gp = gpar(col = "green3"))
+}
+
+for (i in c(0.38, 0.8)) {
+  x <- c(0.4, i, i, 0.9)
+  y <- c(0.4, i, 0.15, 0.15)
+  grid.bezier(x, y, gp = gpar(col = "blue3"))
+}
+```
+
